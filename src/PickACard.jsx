@@ -1,6 +1,8 @@
 import "./Style.css";
 import React, { useState, useRef, useEffect } from "react";
 import heart from "./gameheart.png";
+import GameOver from "./GameOver";
+import NewGameButton from "./NewGameButton";
 
 //still need to make it so conditions are not repeated. might need to create some kind of memory and if the same number for condition comes up again
 // we randomise number again
@@ -49,15 +51,6 @@ const PickACard = () => {
     setTime((prevTime) => (prevTime > 0 ? prevTime - 1 : 0));
   };
 
-  const newGameButton = () => {
-    return (
-      <div>
-        <button onClick={newGame} id="newgame">
-          New Game
-        </button>
-      </div>
-    );
-  };
 
   const livesDisplay = () => {
     const heartIcons = Array.from({ length: lives }, (_, index) => (
@@ -153,31 +146,10 @@ const PickACard = () => {
       return <div className="condition">Prime Numbers</div>;
   };
 
-  const gameOver = () => {
-    return (
-      <div className="gameOver">
-        <h2
-          style={{
-            color: "red",
-          }}
-        >
-          GAME OVER
-        </h2>
-        <h2 className="scoreMessage">Score: {score}</h2>
-
-        <h2>High Score: {highScore}</h2>
-
-        <button onClick={newGame} id="playAgain">
-          Play again
-        </button>
-      </div>
-    );
-  };
-
   return (
     <div className="main">
-      {isGameOver && gameOver(score, highScore)}
-      {gameStarted === false && newGameButton()}
+      {isGameOver ? <GameOver score={score} highScore={highScore} newGame = {newGame}/> : ""}
+      {gameStarted === false ? <NewGameButton newGame={newGame} />: ""}
       <div className="condition">{conditionRender()}</div>
       <div className="pick-a-card-grid">
         {numberArray.map((number, index) => (

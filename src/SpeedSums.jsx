@@ -1,6 +1,8 @@
 import "./Style.css";
 import React, { useState, useRef, useEffect } from "react";
 import heart from "./gameheart.png";
+import GameOver from "./GameOver";
+import NewGameButton from "./NewGameButton";
 
 const SpeedSums = () => {
   const [operation, setOperation] = useState("");
@@ -127,27 +129,6 @@ const SpeedSums = () => {
     }
   }, [lives, time]);
 
-  const gameOver = (score, highScore) => {
-    return (
-      <div className="gameOver">
-        <h2
-          style={{
-            color: "red",
-          }}
-        >
-          GAME OVER
-        </h2>
-        <h2 className="scoreMessage">Score: {score}</h2>
-
-        <h2>High Score: {highScore}</h2>
-
-        <button onClick={newGame} id="playAgain">
-          Play again
-        </button>
-      </div>
-    );
-  };
-
   const newGameButton = () => {
     return (
       <div>
@@ -198,8 +179,8 @@ const SpeedSums = () => {
 
   return (
     <div className="main">
-      {isGameOver && gameOver(score, highScore)}
-      {gameStarted === false && newGameButton()}
+      {isGameOver ? <GameOver score={score} highScore={highScore} newGame = {newGame}/> : ""}
+      {gameStarted === false ? <NewGameButton newGame={newGame} />: ""}
       <div class="answer-div">
         <h2 className="question">
           {integer1}
