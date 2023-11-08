@@ -1,8 +1,8 @@
 import "./Style.css";
 import React, { useState, useRef, useEffect } from "react";
-import heart from "./gameheart.png";
 import GameOver from "./GameOver";
 import NewGameButton from "./NewGameButton";
+import LivesDisplay from "./LivesDisplay";
 
 const SpeedSums = () => {
   const [operation, setOperation] = useState("");
@@ -21,17 +21,17 @@ const SpeedSums = () => {
   const [equals, setEquals] = useState("");
   const [gameStarted, setGameStarted] = useState(false);
 
-  function randint() {
+  const randint = () => {
     return Math.floor(Math.random() * 10);
   }
 
-  function randinteger1() {
+  const randinteger1 =() => {
     let randinteger1 = randint();
     setInteger1(randinteger1);
     return randinteger1;
   }
 
-  function randinteger2() {
+  const randinteger2 = () => {
     let randinteger2 = randint();
     setInteger2(randinteger2);
     return randinteger2;
@@ -60,7 +60,7 @@ const SpeedSums = () => {
     intervalRef.current = setInterval(reduceTime, 1000);
   };
 
-  function randomQuestion() {
+  const randomQuestion = () => {
     let operationChance = Math.floor(Math.random() * 4);
 
     if (operationChance === 0) {
@@ -91,7 +91,7 @@ const SpeedSums = () => {
     return;
   }
 
-  function checkAnswer(userAnswer, answer) {
+  const checkAnswer = (userAnswer, answer) => {
     if (userAnswer == "") {
       return;
     }
@@ -124,13 +124,7 @@ const SpeedSums = () => {
       }
 
   }, [lives, time, highScore, score]);
-  
-  const livesDisplay = () => {
-    const heartIcons = Array.from({ length: lives }, (_, index) => (
-      <img src={heart} key={index} alt="heart icon" className="heartIcon" />
-    ));
-    return heartIcons;
-  };
+
 
   const timerBar = () => {
     const timerBarWidth = (time / 60) * 100 + "%";
@@ -202,7 +196,7 @@ const SpeedSums = () => {
         Time remaining: {time}
       </h3>
       <div className="timerContainer">{timerBar()}</div>
-      <div className="livesContainer">{livesDisplay()}</div>
+      <div className="livesContainer"><LivesDisplay lives={lives}/></div>
     </div>
   );
 };

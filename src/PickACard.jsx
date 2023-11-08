@@ -1,8 +1,8 @@
 import "./Style.css";
 import React, { useState, useRef, useEffect } from "react";
-import heart from "./gameheart.png";
 import GameOver from "./GameOver";
 import NewGameButton from "./NewGameButton";
+import LivesDisplay from "./LivesDisplay";
 
 //still need to make it so conditions are not repeated. might need to create some kind of memory and if the same number for condition comes up again
 // we randomise number again
@@ -48,14 +48,6 @@ const PickACard = () => {
 
   const reduceTime = () => {
     setTime((prevTime) => (prevTime > 0 ? prevTime - 1 : 0));
-  };
-
-
-  const livesDisplay = () => {
-    const heartIcons = Array.from({ length: lives }, (_, index) => (
-      <img src={heart} key={index} className="heartIcon" />
-    ));
-    return heartIcons;
   };
 
   const timerBar = () => {
@@ -173,7 +165,7 @@ const PickACard = () => {
       <div className="timerContainer">{timerBar()}</div>
       {/*temporary container here to keep score and check it's working based on condition */}
       <div>Score: {score} </div>
-      <div className="livesContainer">{livesDisplay()}</div>
+      <div className="livesContainer"><LivesDisplay lives={lives}/></div>
     </div>
   );
 };
