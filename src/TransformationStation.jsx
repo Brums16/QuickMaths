@@ -10,6 +10,68 @@ import React, { useState, useEffect } from "react";
 const TransformationStation = () => {
 
 
+const randInt2 = () => {
+    return (Math.floor(Math.random()*2)===0)
+}
+
+
+const generateStartingShapeState = () => {
+        let startingLocation
+        let startingShapeState
+        if (randInt2()){
+            do {
+            (startingLocation = Math.floor(Math.random()*80)+20)
+            }
+            while (startingLocation % 10 ===9||startingLocation % 10 ===0)
+        if (randInt2()){
+            startingShapeState = [startingLocation, startingLocation-10, startingLocation-20, startingLocation+1]
+        } else {
+            startingShapeState = [startingLocation, startingLocation-10, startingLocation-20, startingLocation-1]
+        }
+    }
+        else  {
+            do{
+            (startingLocation = Math.floor(Math.random()*80))
+            }
+            while (startingLocation % 10 ===9||startingLocation % 10 ===0)
+        if (randInt2()){
+            startingShapeState = [startingLocation, startingLocation+10, startingLocation+20, startingLocation+1]
+        } else {
+            startingShapeState = [startingLocation, startingLocation+10, startingLocation+20, startingLocation-1]
+        }
+        }
+        return startingShapeState
+    
+    }
+    
+    const generateTargetState = () => {
+        let startingTargetLocation
+        let startingTargetState
+        if (randInt2()){
+            do {
+                (startingTargetLocation = Math.floor(Math.random()*80)+20)
+            }
+            while (startingTargetLocation % 10 ===9||startingTargetLocation % 10 === 0)
+            if (randInt2()){
+                startingTargetState = [startingTargetLocation, startingTargetLocation-10, startingTargetLocation-20, startingTargetLocation+1]
+            } else {
+                startingTargetState = [startingTargetLocation, startingTargetLocation-10, startingTargetLocation-20, startingTargetLocation-1]
+            }
+        }
+        else {
+            do {
+                (startingTargetLocation = Math.floor(Math.random()*80))
+            }
+            while (startingTargetLocation % 10 ===9||startingTargetLocation % 10 === 0)
+            if (randInt2()){
+                startingTargetState = [startingTargetLocation, startingTargetLocation+10, startingTargetLocation+20, startingTargetLocation+1]
+            } else {
+                startingTargetState = [startingTargetLocation, startingTargetLocation+10, startingTargetLocation+20, startingTargetLocation-1]
+            }
+        }
+        return startingTargetState
+    }
+    
 
 const startingShapeState = generateStartingShapeState()
 const startingTargetState = generateTargetState()
@@ -20,7 +82,6 @@ const [userXAnswer, setUserXAnswer] = useState()
 const [userYAnswer, setUserYAnswer] = useState()
 const [userMirrorAxis, setUserMirrorAxis] = useState()
 const [userMirrorValue, setUserMirrorValue] = useState()
-
 
 
 
@@ -138,16 +199,14 @@ const handleMirrorValueChange = event => {
 
 
 useEffect(() => {
-    console.log(shapeState)
-    console.log(targetShapeState)
-    console.log(correctShapeState)
+
     if(arraysEqual(shapeState,targetShapeState)){
     setCorrectShapeState(true)
     } else setCorrectShapeState(false)
-}, [shapeState])
+}, [shapeState, targetShapeState])
 
 
-function arraysEqual(a, b) {
+const arraysEqual = (a, b) => {
     if (a === b) return true;
     if (a == null || b == null) return false;
     if (a.length !== b.length) return false;
@@ -156,6 +215,10 @@ function arraysEqual(a, b) {
     }
     return true;
   }
+
+
+
+
 
 
 const vectorTranslation = () => {
@@ -194,11 +257,10 @@ const reflection = () => {
         </div>
        
     )
+
+
     
     }
-
-
-
 
     return (
         <div className='main'>
@@ -231,66 +293,6 @@ const reflection = () => {
 }
 
 
-function randInt2() {
-    return (Math.floor(Math.random()*2)===0)
-}
-
-function generateStartingShapeState() {
-    let startingLocation
-    let startingShapeState
-    if (randInt2()){
-        do {
-        (startingLocation = Math.floor(Math.random()*80)+20)
-        }
-        while (startingLocation % 10 ===9||startingLocation % 10 ===0)
-    if (randInt2()){
-        startingShapeState = [startingLocation, startingLocation-10, startingLocation-20, startingLocation+1]
-    } else {
-        startingShapeState = [startingLocation, startingLocation-10, startingLocation-20, startingLocation-1]
-    }
-}
-    else  {
-        do{
-        (startingLocation = Math.floor(Math.random()*80))
-        }
-        while (startingLocation % 10 ===9||startingLocation % 10 ===0)
-    if (randInt2()){
-        startingShapeState = [startingLocation, startingLocation+10, startingLocation+20, startingLocation+1]
-    } else {
-        startingShapeState = [startingLocation, startingLocation+10, startingLocation+20, startingLocation-1]
-    }
-    }
-    return startingShapeState
-
-}
-
-function generateTargetState() {
-    let startingTargetLocation
-    let startingTargetState
-    if (randInt2()){
-        do {
-            (startingTargetLocation = Math.floor(Math.random()*80)+20)
-        }
-        while (startingTargetLocation % 10 ===9||startingTargetLocation % 10 === 0)
-        if (randInt2()){
-            startingTargetState = [startingTargetLocation, startingTargetLocation-10, startingTargetLocation-20, startingTargetLocation+1]
-        } else {
-            startingTargetState = [startingTargetLocation, startingTargetLocation-10, startingTargetLocation-20, startingTargetLocation-1]
-        }
-    }
-    else {
-        do {
-            (startingTargetLocation = Math.floor(Math.random()*80))
-        }
-        while (startingTargetLocation % 10 ===9||startingTargetLocation % 10 === 0)
-        if (randInt2()){
-            startingTargetState = [startingTargetLocation, startingTargetLocation+10, startingTargetLocation+20, startingTargetLocation+1]
-        } else {
-            startingTargetState = [startingTargetLocation, startingTargetLocation+10, startingTargetLocation+20, startingTargetLocation-1]
-        }
-    }
-    return startingTargetState
-}
 
 
 

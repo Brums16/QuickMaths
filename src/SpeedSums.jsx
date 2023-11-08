@@ -88,7 +88,6 @@ const SpeedSums = () => {
       setAnswer(dividend / divisor);
       setEquals(" = ");
     }
-    console.log(answer);
     return;
   }
 
@@ -116,29 +115,16 @@ const SpeedSums = () => {
   }
 
   useEffect(() => {
-    if (score > highScore) {
-      setHighScore(score);
-    }
-  }, [score]);
-  /*this next part is listening to see if lives or time falls to 0 */
-
-  useEffect(() => {
     if (lives === 0 || time === 0) {
-      setIsGameOver(true);
-      clearInterval(intervalRef.current);
-    }
-  }, [lives, time]);
+    setIsGameOver(true);
+    clearInterval(intervalRef.current);
+  }
+    if (score > highScore) {
+        setHighScore(score);
+      }
 
-  const newGameButton = () => {
-    return (
-      <div>
-        <button onClick={newGame} id="newgame">
-          New Game
-        </button>
-      </div>
-    );
-  };
-
+  }, [lives, time, highScore, score]);
+  
   const livesDisplay = () => {
     const heartIcons = Array.from({ length: lives }, (_, index) => (
       <img src={heart} key={index} alt="heart icon" className="heartIcon" />

@@ -29,7 +29,6 @@ const PickACard = () => {
       orderedArray.push(i);
     }
     setNumberArray(orderedArray);
-    console.log(numberArray);
   };
 
   const newGame = () => {
@@ -77,7 +76,6 @@ const PickACard = () => {
 
   useEffect(() => {
     if (time < 60 && time % 10 === 0) {
-      console.log("new condition time!");
       setConditionRule(Math.ceil(Math.random() * 10));
       setConditionInteger(Math.ceil(Math.random() * 10));
     }
@@ -85,13 +83,14 @@ const PickACard = () => {
 
   useEffect(() => {
     if (lives === 0 || time === 0) {
-      setIsGameOver(true);
-      if (score > highScore) {
+    setIsGameOver(true);
+    clearInterval(intervalRef.current);
+  }
+    if (score > highScore) {
         setHighScore(score);
       }
-      clearInterval(intervalRef.current);
-    }
-  }, [lives, time]);
+
+  }, [lives, time, highScore, score]);
 
   const checkPrime = (n) => {
     for (let i = 2; i <= Math.sqrt(n); i++) {
